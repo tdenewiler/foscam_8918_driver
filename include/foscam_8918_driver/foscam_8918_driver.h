@@ -49,6 +49,7 @@ private:
 
     //! Dynamic reconfigure server.
     dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig> reconfig_srv;
+    //! Dynamic reconfigure callback function.
     dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig>::CallbackType reconfig_cb;
 
     //! Parameters needed to connect to camera.
