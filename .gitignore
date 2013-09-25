@@ -1,0 +1,9 @@
+launch/foscam_8918_driver.launch
+bin
+build
+docs
+cfg/cpp
+cfg/*.cfgc
+*.swo
+*.swp
+src/foscam_8918_driver
