@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find foscam_8918_driver)/launch/foscam_8918_driver.launch"/>
+
+  <node pkg="image_view" type="image_view" name="foscam_viewer">
+    <remap from="image" to="image_raw"/>
+  </node>
+</launch>
