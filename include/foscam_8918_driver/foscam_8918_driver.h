@@ -58,6 +58,7 @@ private:
     std::string ip_address_;
     std::string port_;
     std::string url_suffix_;
+    std::string url_prefix_;
 
     //! Variables for capturing video.
     int rate_;
@@ -65,13 +66,11 @@ private:
     cv::VideoCapture vcap_;
 
     //! Publishing camera data.
+    std::string frame_id_;
     boost::shared_ptr<image_transport::ImageTransport> it_;
-    image_transport::CameraPublisher image_pub_;
+    image_transport::CameraPublisher camera_pub_;
     boost::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
     cv_bridge::CvImage cv_img_;
-
-    //! Debug variables.
-    bool debug_show_image_window_;
 };
 }
 
