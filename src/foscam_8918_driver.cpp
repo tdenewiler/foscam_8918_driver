@@ -1,6 +1,9 @@
 #include "foscam_8918_driver/foscam_8918_driver.h"
 
-Foscam8918Driver::Foscam8918::Foscam8918(ros::NodeHandle nh_) :
+namespace Foscam8918Driver
+{
+
+Foscam8918::Foscam8918(ros::NodeHandle nh_) :
     it_(new image_transport::ImageTransport(nh_)),
     image_pub_(it_->advertiseCamera("image_raw", 1)),
     camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
@@ -33,11 +36,11 @@ Foscam8918Driver::Foscam8918::Foscam8918(ros::NodeHandle nh_) :
     ros::spin();
 }
 
-Foscam8918Driver::Foscam8918::~Foscam8918()
+Foscam8918::~Foscam8918()
 {
 }
 
-bool Foscam8918Driver::Foscam8918::connectToCamera()
+bool Foscam8918::connectToCamera()
 {
     // URL of camera video stream.
     const std::string video_stream_address = "http://" + username_ + ":" + password_ + "@" + ip_address_ + ":" + port_ + "/" + url_suffix_;
@@ -54,7 +57,7 @@ bool Foscam8918Driver::Foscam8918::connectToCamera()
     return true;
 }
 
-void Foscam8918Driver::Foscam8918::timerCallback(const ros::TimerEvent& event)
+void Foscam8918::timerCallback(const ros::TimerEvent& event)
 {
     cv::Mat image;
 
@@ -86,7 +89,7 @@ void Foscam8918Driver::Foscam8918::timerCallback(const ros::TimerEvent& event)
     }
 }
 
-void Foscam8918Driver::Foscam8918::configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level)
+void Foscam8918::configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level)
 {
     username_ = config.username;
     password_ = config.password;
@@ -100,4 +103,6 @@ void Foscam8918Driver::Foscam8918::configCallback(foscam_8918_driver::foscam_891
         connectToCamera();
         ROS_INFO("Resetting connection to camera with current parameters.");
     }
+}
+
 }
