@@ -1,0 +1,29 @@
+<package>
+  <name>foscam_8918_driver</name>
+  <version>0.0.1</version>
+  <description>
+    ROS driver that uses OpenCV to get image stream from Foscam 8918 IP camera
+    and publish with image transport.
+  </description>
+  <author>Thomas Denewiler</author>
+  <maintainer email="tdenewiler@gmail.com">Thomas Denewiler</maintainer>
+  <license>BSD</license>
+  <url></url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>camera_info_manager</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>OpenCV</build_depend>
+  <run_depend>camera_info_manager</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>OpenCV</run_depend>
+</package>
