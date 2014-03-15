@@ -9,8 +9,8 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
     camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
 {
     // Set up a dynamic reconfigure server.
-    reconfig_cb = boost::bind(&Foscam8918Driver::Foscam8918::configCallback, this, _1, _2);
-    reconfig_srv.setCallback(reconfig_cb);
+    reconfig_cb_ = boost::bind(&Foscam8918Driver::Foscam8918::configCallback, this, _1, _2);
+    reconfig_srv_.setCallback(reconfig_cb_);
 
     // Initialize node parameters.
     ros::NodeHandle pnh("~");
@@ -19,7 +19,6 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
     pnh.param("ip_address", ip_address_, std::string("192.168.1.1"));
     pnh.param("port",       port_,       std::string("80"));
     pnh.param("url_suffix", url_suffix_, std::string("video.cgi?.mjpg"));
-    pnh.param("debug_show_image_window", debug_show_image_window_, false);
     pnh.param("rate",       rate_,       int(10));
     if (rate_ <= 0)
     {
@@ -80,12 +79,6 @@ void Foscam8918::timerCallback(const ros::TimerEvent& event)
         ci->header = cv_img_.header;
 
         image_pub_.publish(cv_img_.toImageMsg(), ci);
-
-        if (debug_show_image_window_)
-        {
-            cv::imshow("Output Window", image);
-            cv::waitKey(1);
-        }
     }
 }
 

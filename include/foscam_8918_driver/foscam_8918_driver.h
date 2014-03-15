@@ -48,9 +48,9 @@ private:
     bool connectToCamera();
 
     //! Dynamic reconfigure server.
-    dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig> reconfig_srv;
+    dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig> reconfig_srv_;
     //! Dynamic reconfigure callback function.
-    dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig>::CallbackType reconfig_cb;
+    dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig>::CallbackType reconfig_cb_;
 
     //! Parameters needed to connect to camera.
     std::string username_;
@@ -69,9 +69,6 @@ private:
     image_transport::CameraPublisher image_pub_;
     boost::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
     cv_bridge::CvImage cv_img_;
-
-    //! Debug variables.
-    bool debug_show_image_window_;
 };
 }
 
