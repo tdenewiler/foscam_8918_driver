@@ -1,23 +1,19 @@
-cmake_minimum_required (VERSION 2.8.3)
-project (foscam_8918_driver)
+cmake_minimum_required(VERSION 2.8.3)
+project(foscam_8918_driver)
 
 find_package(catkin REQUIRED COMPONENTS camera_info_manager cv_bridge dynamic_reconfigure image_transport roscpp sensor_msgs)
 
 find_package(OpenCV REQUIRED)
 
-generate_dynamic_reconfigure_options(
-  cfg/foscam_8918_driver.cfg
-)
+generate_dynamic_reconfigure_options(cfg/foscam_8918_driver.cfg)
 
-catkin_package(
-  CATKIN_DEPENDS camera_info_manager cv_bridge dynamic_reconfigure image_transport roscpp sensor_msgs
-)
+catkin_package(CATKIN_DEPENDS camera_info_manager cv_bridge dynamic_reconfigure image_transport roscpp sensor_msgs)
 
 include_directories(include ${OpenCV_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 
-set (SRCS ${SRCS} src/nodes/foscam_8918_driver_node.cpp)
-set (SRCS ${SRCS} src/foscam_8918_driver.cpp)
+set(SRCS ${SRCS} src/nodes/foscam_8918_driver_node.cpp)
+set(SRCS ${SRCS} src/foscam_8918_driver.cpp)
 
-add_executable (${PROJECT_NAME} ${SRCS})
+add_executable(${PROJECT_NAME} ${SRCS})
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
