@@ -30,45 +30,45 @@ namespace Foscam8918Driver
 class Foscam8918
 {
 public:
-    //! Constructor.
-    //! \param nh_ The node handle that topics and parameters are attached to.
-    Foscam8918(ros::NodeHandle nh_);
+  //! Constructor.
+  //! \param nh_ The node handle that topics and parameters are attached to.
+  Foscam8918(ros::NodeHandle nh_);
 
-    //! Destructor.
-    ~Foscam8918();
+  //! Destructor.
+  ~Foscam8918();
 
 private:
-    //! Callback function for timer that kicks off all the work.
-    void timerCallback(const ros::TimerEvent& event);
+  //! Callback function for timer that kicks off all the work.
+  void timerCallback(const ros::TimerEvent& event);
 
-    //! Callback function for dynamic reconfigure server.
-    void configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level);
+  //! Callback function for dynamic reconfigure server.
+  void configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level);
 
-    //! Connect to the camera.
-    bool connectToCamera();
+  //! Connect to the camera.
+  bool connectToCamera();
 
-    //! Dynamic reconfigure server.
-    dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig> reconfig_srv_;
-    //! Dynamic reconfigure callback function.
-    dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig>::CallbackType reconfig_cb_;
+  //! Dynamic reconfigure server.
+  dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig> reconfig_srv_;
+  //! Dynamic reconfigure callback function.
+  dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig>::CallbackType reconfig_cb_;
 
-    //! Parameters needed to connect to camera.
-    std::string username_;
-    std::string password_;
-    std::string ip_address_;
-    std::string port_;
-    std::string url_suffix_;
+  //! Parameters needed to connect to camera.
+  std::string username_;
+  std::string password_;
+  std::string ip_address_;
+  std::string port_;
+  std::string url_suffix_;
 
-    //! Variables for capturing video.
-    int rate_;
-    bool have_connection_;
-    cv::VideoCapture vcap_;
+  //! Variables for capturing video.
+  int rate_;
+  bool have_connection_;
+  cv::VideoCapture vcap_;
 
-    //! Publishing camera data.
-    boost::shared_ptr<image_transport::ImageTransport> it_;
-    image_transport::CameraPublisher image_pub_;
-    boost::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
-    cv_bridge::CvImage cv_img_;
+  //! Publishing camera data.
+  boost::shared_ptr<image_transport::ImageTransport> it_;
+  image_transport::CameraPublisher image_pub_;
+  boost::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
+  cv_bridge::CvImage cv_img_;
 };
 }
 
