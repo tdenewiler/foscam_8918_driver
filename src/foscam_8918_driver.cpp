@@ -22,7 +22,7 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
   pnh.param("rate",       rate_,       int(10));
   if (rate_ <= 0)
   {
-      rate_ = 1;
+    rate_ = 1;
   }
 
   // Create a timer callback.
