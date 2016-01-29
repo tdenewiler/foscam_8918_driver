@@ -25,7 +25,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <foscam_8918_driver/foscam_8918_driverConfig.h>
 
-namespace Foscam8918Driver
+namespace foscam_8918_driver
 {
 class Foscam8918
 {

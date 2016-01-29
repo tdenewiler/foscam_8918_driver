@@ -1,6 +1,6 @@
 #include "foscam_8918_driver/foscam_8918_driver.h"
 
-namespace Foscam8918Driver
+namespace foscam_8918_driver
 {
 
 Foscam8918::Foscam8918(ros::NodeHandle nh_) :
@@ -9,7 +9,7 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
     camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
 {
   // Set up a dynamic reconfigure server.
-  reconfig_cb_ = boost::bind(&Foscam8918Driver::Foscam8918::configCallback, this, _1, _2);
+  reconfig_cb_ = boost::bind(&foscam_8918_driver::Foscam8918::configCallback, this, _1, _2);
   reconfig_srv_.setCallback(reconfig_cb_);
 
   // Initialize node parameters.
@@ -26,7 +26,7 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
   }
 
   // Create a timer callback.
-  ros::Timer timer = nh_.createTimer(ros::Duration(1.0/rate_), &Foscam8918Driver::Foscam8918::timerCallback, this);
+  ros::Timer timer = nh_.createTimer(ros::Duration(1.0/rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
 
   // Connect to the camera.
   connectToCamera();
