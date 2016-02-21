@@ -14,8 +14,8 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
 
   // Initialize node parameters.
   ros::NodeHandle pnh("~");
-  pnh.param("username",   username_,   std::string("change_me"));
-  pnh.param("password",   password_,   std::string("change_me"));
+  pnh.param("username",   username_,   std::string("admin"));
+  pnh.param("password",   password_,   std::string(""));
   pnh.param("ip_address", ip_address_, std::string("192.168.1.1"));
   pnh.param("port",       port_,       std::string("80"));
   pnh.param("url_suffix", url_suffix_, std::string("video.cgi?.mjpg"));
