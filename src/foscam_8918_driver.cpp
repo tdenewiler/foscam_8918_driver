@@ -2,13 +2,16 @@
 
 namespace foscam_8918_driver
 {
-
-Foscam8918::Foscam8918(ros::NodeHandle nh_) :
-  username_("admin"), password_(""), ip_address_("192.168.1.1"), port_("80"), url_suffix_("video.cgi?.mjpg"),
-    rate_(10),
-    it_(new image_transport::ImageTransport(nh_)),
-    image_pub_(it_->advertiseCamera("image_raw", 1)),
-    camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
+Foscam8918::Foscam8918(ros::NodeHandle nh_)
+    : username_("admin"),
+      password_(""),
+      ip_address_("192.168.1.1"),
+      port_("80"),
+      url_suffix_("video.cgi?.mjpg"),
+      rate_(10),
+      it_(new image_transport::ImageTransport(nh_)),
+      image_pub_(it_->advertiseCamera("image_raw", 1)),
+      camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
 {
   // Set up a dynamic reconfigure server.
   reconfig_cb_ = boost::bind(&foscam_8918_driver::Foscam8918::configCallback, this, _1, _2);
@@ -28,7 +31,7 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
   }
 
   // Create a timer callback.
-  ros::Timer timer = nh_.createTimer(ros::Duration(1.0/rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
+  ros::Timer timer = nh_.createTimer(ros::Duration(1.0 / rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
 
   // Connect to the camera.
   connectToCamera();
@@ -44,7 +47,8 @@ Foscam8918::~Foscam8918()
 bool Foscam8918::connectToCamera()
 {
   // URL of camera video stream.
-  const std::string video_stream_address = "http://" + username_ + ":" + password_ + "@" + ip_address_ + ":" + port_ + "/" + url_suffix_;
+  const std::string video_stream_address =
+      "http://" + username_ + ":" + password_ + "@" + ip_address_ + ":" + port_ + "/" + url_suffix_;
 
   // Open the video stream and make sure it's opened.
   have_connection_ = true;
@@ -58,7 +62,7 @@ bool Foscam8918::connectToCamera()
   return true;
 }
 
-void Foscam8918::timerCallback(const ros::TimerEvent& event)
+void Foscam8918::timerCallback(const ros::TimerEvent &event)
 {
   cv::Mat image;
 
@@ -99,5 +103,4 @@ void Foscam8918::configCallback(foscam_8918_driver::foscam_8918_driverConfig &co
     ROS_INFO("Resetting connection to camera with current parameters.");
   }
 }
-
 }

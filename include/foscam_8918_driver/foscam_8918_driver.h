@@ -29,7 +29,7 @@ namespace foscam_8918_driver
 {
 class Foscam8918
 {
-public:
+ public:
   //! Constructor.
   //! \param nh_ The node handle that topics and parameters are attached to.
   explicit Foscam8918(ros::NodeHandle nh_);
@@ -37,9 +37,9 @@ public:
   //! Destructor.
   ~Foscam8918();
 
-private:
+ private:
   //! Callback function for timer that kicks off all the work.
-  void timerCallback(const ros::TimerEvent& event);
+  void timerCallback(const ros::TimerEvent &event);
 
   //! Callback function for dynamic reconfigure server.
   void configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level);
@@ -72,4 +72,4 @@ private:
 };
 }
 
-#endif // FOSCAM_DRIVER_H
+#endif  // FOSCAM_DRIVER_H
