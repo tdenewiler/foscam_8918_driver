@@ -4,14 +4,14 @@
 Node that will subscribe to a commanded velocity and move a Foscam PTZ camera.
 """
 
-# ROS.
-import rospy
-from geometry_msgs.msg import Twist
 import urllib
 from enum import Enum
+import rospy
+from geometry_msgs.msg import Twist
 
-class Commands(Enum): # pylint: disable=no-init
+#pylint: disable=no-init
 # pylint: disable=too-few-public-methods
+class Commands(Enum):
     """
     Available PTZ commands.
     """
@@ -24,6 +24,7 @@ class Commands(Enum): # pylint: disable=no-init
     move_right = 6
     stop_right = 7
 # pylint: enable=too-few-public-methods
+# pylint: enable=no-init
 
 class FoscamPTZ(object):
     """
