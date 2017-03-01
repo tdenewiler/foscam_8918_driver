@@ -14,6 +14,6 @@ include_directories(include ${OpenCV_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 set(SRCS ${SRCS} src/nodes/foscam_8918_driver_node.cpp)
 set(SRCS ${SRCS} src/foscam_8918_driver.cpp)
 
-add_executable(${PROJECT_NAME} ${SRCS})
+add_executable(${PROJECT_NAME} src/foscam_8918_driver.cpp src/nodes/foscam_8918_driver_node.cpp)
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
