@@ -32,7 +32,7 @@ class Foscam8918
 public:
   //! Constructor.
   //! \param nh_ The node handle that topics and parameters are attached to.
-  Foscam8918(ros::NodeHandle nh_);
+  explicit Foscam8918(ros::NodeHandle nh_);
 
   //! Destructor.
   ~Foscam8918();

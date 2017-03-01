@@ -4,6 +4,8 @@ namespace foscam_8918_driver
 {
 
 Foscam8918::Foscam8918(ros::NodeHandle nh_) :
+  username_("admin"), password_(""), ip_address_("192.168.1.1"), port_("80"), url_suffix_("video.cgi?.mjpg"),
+    rate_(10),
     it_(new image_transport::ImageTransport(nh_)),
     image_pub_(it_->advertiseCamera("image_raw", 1)),
     camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
@@ -14,12 +16,12 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_) :
 
   // Initialize node parameters.
   ros::NodeHandle pnh("~");
-  pnh.param("username",   username_,   std::string("admin"));
-  pnh.param("password",   password_,   std::string(""));
-  pnh.param("ip_address", ip_address_, std::string("192.168.1.1"));
-  pnh.param("port",       port_,       std::string("80"));
-  pnh.param("url_suffix", url_suffix_, std::string("video.cgi?.mjpg"));
-  pnh.param("rate",       rate_,       int(10));
+  pnh.param("username", username_, username_);
+  pnh.param("password", password_, password_);
+  pnh.param("ip_address", ip_address_, ip_address_);
+  pnh.param("port", port_, port_);
+  pnh.param("url_suffix", url_suffix_, url_suffix_);
+  pnh.param("rate", rate_, rate_);
   if (rate_ <= 0)
   {
     rate_ = 1;
