@@ -1,5 +1,5 @@
-#ifndef FOSCAM_DRIVER_H
-#define FOSCAM_DRIVER_H
+#ifndef FOSCAM_8918_DRIVER_FOSCAM_8918_DRIVER_H
+#define FOSCAM_8918_DRIVER_FOSCAM_8918_DRIVER_H
 
 // System includes.
 #include <math.h>
@@ -72,4 +72,4 @@ class Foscam8918
 };
 }
 
-#endif  // FOSCAM_DRIVER_H
+#endif
