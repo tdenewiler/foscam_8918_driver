@@ -28,11 +28,9 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
     rate_ = 1;
   }
 
-  ros::Timer timer = nh_.createTimer(ros::Duration(1.0 / rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
+  timer_ = nh_.createTimer(ros::Duration(1.0 / rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
 
   connectToCamera();
-
-  ros::spin();
 }
 
 void Foscam8918::connectToCamera()

@@ -54,6 +54,7 @@ class Foscam8918
   image_transport::CameraPublisher image_pub_;
   boost::shared_ptr<camera_info_manager::CameraInfoManager> camera_info_manager_;
   cv_bridge::CvImage cv_img_;
+  ros::Timer timer_;
 };
 }
 
