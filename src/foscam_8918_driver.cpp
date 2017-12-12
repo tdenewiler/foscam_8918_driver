@@ -35,7 +35,7 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
   ros::spin();
 }
 
-bool Foscam8918::connectToCamera()
+void Foscam8918::connectToCamera()
 {
   const std::string video_stream_address =
       "http://" + username_ + ":" + password_ + "@" + ip_address_ + ":" + port_ + "/" + url_suffix_;
@@ -45,35 +45,33 @@ bool Foscam8918::connectToCamera()
   {
     have_connection_ = false;
     ROS_ERROR("Error opening video stream or file");
-    return false;
   }
-
-  return true;
 }
 
 void Foscam8918::timerCallback(const ros::TimerEvent &event)
 {
-  cv::Mat image;
-
-  if (have_connection_)
+  if (!have_connection_)
   {
-    if (!vcap_.read(image))
-    {
-      ROS_WARN("No frame");
-      cv::waitKey();
-    }
-    cv_img_.header.stamp = ros::Time::now();
-    cv_img_.header.frame_id = "foscam";
-    cv_img_.encoding = "bgr8";
-    cv_img_.image = image;
-
-    sensor_msgs::CameraInfoPtr ci(new sensor_msgs::CameraInfo(camera_info_manager_->getCameraInfo()));
-    ci->height = image.rows;
-    ci->width = image.cols;
-    ci->header = cv_img_.header;
-
-    image_pub_.publish(cv_img_.toImageMsg(), ci);
+    return;
   }
+
+  cv::Mat image;
+  if (!vcap_.read(image))
+  {
+    ROS_WARN("No frame");
+    cv::waitKey();
+  }
+  cv_img_.header.stamp = ros::Time::now();
+  cv_img_.header.frame_id = "foscam";
+  cv_img_.encoding = "bgr8";
+  cv_img_.image = image;
+
+  sensor_msgs::CameraInfoPtr ci(new sensor_msgs::CameraInfo(camera_info_manager_->getCameraInfo()));
+  ci->height = image.rows;
+  ci->width = image.cols;
+  ci->header = cv_img_.header;
+
+  image_pub_.publish(cv_img_.toImageMsg(), ci);
 }
 
 void Foscam8918::configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level)

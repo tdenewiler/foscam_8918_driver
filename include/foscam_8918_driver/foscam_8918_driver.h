@@ -35,7 +35,7 @@ class Foscam8918
 
   void configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level);
 
-  bool connectToCamera();
+  void connectToCamera();
 
   dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig> reconfig_srv_;
   dynamic_reconfigure::Server<foscam_8918_driver::foscam_8918_driverConfig>::CallbackType reconfig_cb_;
