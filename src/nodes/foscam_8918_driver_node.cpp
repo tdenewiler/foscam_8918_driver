@@ -2,7 +2,6 @@
 
 int main(int argc, char **argv)
 {
-  // Set up ROS.
   ros::init(argc, argv, "foscam_8918_driver");
   ros::NodeHandle nh;
 

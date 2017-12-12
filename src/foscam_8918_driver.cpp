@@ -13,11 +13,9 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
       image_pub_(it_->advertiseCamera("image_raw", 1)),
       camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
 {
-  // Set up a dynamic reconfigure server.
   reconfig_cb_ = boost::bind(&foscam_8918_driver::Foscam8918::configCallback, this, _1, _2);
   reconfig_srv_.setCallback(reconfig_cb_);
 
-  // Initialize node parameters.
   ros::NodeHandle pnh("~");
   pnh.param("username", username_, username_);
   pnh.param("password", password_, password_);
@@ -30,23 +28,18 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
     rate_ = 1;
   }
 
-  // Create a timer callback.
   ros::Timer timer = nh_.createTimer(ros::Duration(1.0 / rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
 
-  // Connect to the camera.
   connectToCamera();
 
-  // Let callbacks take over.
   ros::spin();
 }
 
 bool Foscam8918::connectToCamera()
 {
-  // URL of camera video stream.
   const std::string video_stream_address =
       "http://" + username_ + ":" + password_ + "@" + ip_address_ + ":" + port_ + "/" + url_suffix_;
 
-  // Open the video stream and make sure it's opened.
   have_connection_ = true;
   if (!vcap_.open(video_stream_address))
   {
@@ -69,7 +62,6 @@ void Foscam8918::timerCallback(const ros::TimerEvent &event)
       ROS_WARN("No frame");
       cv::waitKey();
     }
-    //! \todo Clean up the header values with use of parameters and better spot for getting time.
     cv_img_.header.stamp = ros::Time::now();
     cv_img_.header.frame_id = "foscam";
     cv_img_.encoding = "bgr8";
