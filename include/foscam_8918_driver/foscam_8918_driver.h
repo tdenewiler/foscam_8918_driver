@@ -36,9 +36,6 @@ class Foscam8918
   //! \param nh_ The node handle that topics and parameters are attached to.
   explicit Foscam8918(ros::NodeHandle nh_);
 
-  //! Destructor.
-  ~Foscam8918();
-
  private:
   //! Callback function for timer that kicks off all the work.
   void timerCallback(const ros::TimerEvent &event);

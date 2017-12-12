@@ -40,10 +40,6 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
   ros::spin();
 }
 
-Foscam8918::~Foscam8918()
-{
-}
-
 bool Foscam8918::connectToCamera()
 {
   // URL of camera video stream.
