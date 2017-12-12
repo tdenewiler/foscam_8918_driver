@@ -3,11 +3,19 @@ project(foscam_8918_driver)
 
 find_package(catkin REQUIRED COMPONENTS camera_info_manager cv_bridge dynamic_reconfigure image_transport roscpp sensor_msgs)
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED core highgui videoio)
 
 generate_dynamic_reconfigure_options(cfg/foscam_8918_driver.cfg)
 
-catkin_package(CATKIN_DEPENDS camera_info_manager cv_bridge dynamic_reconfigure image_transport roscpp sensor_msgs)
+catkin_package(
+  CATKIN_DEPENDS
+    camera_info_manager
+    cv_bridge
+    dynamic_reconfigure
+    image_transport
+    roscpp
+    sensor_msgs
+)
 
 include_directories(include ${OpenCV_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 
