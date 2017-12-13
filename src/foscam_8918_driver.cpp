@@ -8,7 +8,6 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
       ip_address_("192.168.1.1"),
       port_("80"),
       url_suffix_("video.cgi?.mjpg"),
-      rate_(10),
       it_(new image_transport::ImageTransport(nh_)),
       image_pub_(it_->advertiseCamera("image_raw", 1)),
       camera_info_manager_(new camera_info_manager::CameraInfoManager(nh_))
@@ -22,13 +21,14 @@ Foscam8918::Foscam8918(ros::NodeHandle nh_)
   pnh.param("ip_address", ip_address_, ip_address_);
   pnh.param("port", port_, port_);
   pnh.param("url_suffix", url_suffix_, url_suffix_);
-  pnh.param("rate", rate_, rate_);
-  if (rate_ <= 0)
+  int rate = 10;
+  pnh.param("rate", rate, rate);
+  if (rate <= 0)
   {
-    rate_ = 1;
+    rate = 1;
   }
 
-  timer_ = nh_.createTimer(ros::Duration(1.0 / rate_), &foscam_8918_driver::Foscam8918::timerCallback, this);
+  timer_ = nh_.createTimer(ros::Duration(1.0 / rate), &foscam_8918_driver::Foscam8918::timerCallback, this);
 
   connectToCamera();
 }

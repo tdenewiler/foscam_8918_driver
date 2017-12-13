@@ -46,7 +46,6 @@ class Foscam8918
   std::string port_;
   std::string url_suffix_;
 
-  int rate_;
   bool have_connection_;
   cv::VideoCapture vcap_;
 
