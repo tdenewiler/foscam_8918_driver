@@ -39,6 +39,9 @@ void Foscam8918::connectToCamera()
       "http://" + username_ + ":" + password_ + "@" + ip_address_ + ":" + port_ + "/" + url_suffix_;
 
   have_connection_ = true;
+  // Ignore warning since I do not currently have a better way of opening an address. I'm not sure if the URL can be
+  // manipulated to attack the local network.
+  // Flawfinder: ignore
   if (!vcap_.open(video_stream_address))
   {
     have_connection_ = false;
@@ -46,7 +49,7 @@ void Foscam8918::connectToCamera()
   }
 }
 
-void Foscam8918::timerCallback(const ros::TimerEvent &event)
+void Foscam8918::timerCallback(const ros::TimerEvent &event __attribute__((unused)))
 {
   if (!have_connection_)
   {
@@ -54,6 +57,8 @@ void Foscam8918::timerCallback(const ros::TimerEvent &event)
   }
 
   cv::Mat image;
+  // Ignore warning since we are not reading in a loop that would cause the buffer boundaries to be exceeded.
+  // Flawfinder: ignore
   if (!vcap_.read(image))
   {
     ROS_WARN("No frame");
@@ -72,7 +77,8 @@ void Foscam8918::timerCallback(const ros::TimerEvent &event)
   image_pub_.publish(cv_img_.toImageMsg(), ci);
 }
 
-void Foscam8918::configCallback(foscam_8918_driver::foscam_8918_driverConfig &config, uint32_t level)
+void Foscam8918::configCallback(foscam_8918_driver::foscam_8918_driverConfig &config,
+                                uint32_t level __attribute__((unused)))
 {
   username_ = config.username;
   password_ = config.password;

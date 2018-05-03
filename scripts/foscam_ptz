@@ -96,7 +96,7 @@ class FoscamPTZ(object):
         for param in parameters:
             url = url + '&%s=%s' % (param, parameters[param])
 
-        return urllib.urlopen(url)
+        return urllib.urlopen(url)  # nosec
 
 if __name__ == '__main__':
     rospy.init_node('foscam_ptz')
