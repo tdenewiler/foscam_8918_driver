@@ -6,14 +6,19 @@ on: [pull_request, push]  # NOLINT
 jobs:
   build:
 
-    runs-on: ${{ matrix.os }}
-
-    container:
-      image: ros:melodic
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [ubuntu-18.04]
+        container:
+          - image: 'ros:kinetic'
+            env:
+              ROS_DISTRO: kinetic
+          - image: 'ros:melodic'
+            env:
+              ROS_DISTRO: melodic
+
+    container: ${{ matrix.container }}
 
     defaults:
       run:
@@ -23,14 +28,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: src/foscam_8918_driver
-
-      - uses: actions/cache@v1
-        if: startsWith(runner.os, 'Linux')
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
       # Remove apt repos that are known to break from time to time.
       # See https://github.com/actions/virtual-environments/issues/323
@@ -51,10 +48,9 @@ jobs:
           wstool init
           cd ..
           rosdep update
-          rosdep install -y --from-paths src --ignore-src --rosdistro melodic
+          rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
 
       - name: Build
         run: |
-          . /opt/ros/melodic/setup.bash
+          . /opt/ros/$ROS_DISTRO/setup.bash
           catkin build
-          . devel/setup.bash
