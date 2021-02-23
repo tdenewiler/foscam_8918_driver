@@ -13,14 +13,14 @@ from geometry_msgs.msg import Twist
 class Commands(Enum):
     """Available PTZ commands."""
 
-    move_up = 0
-    stop_up = 1
-    move_down = 2
-    stop_down = 3
-    move_left = 4
-    stop_left = 5
-    move_right = 6
-    stop_right = 7
+    MOVE_UP = 0
+    STOP_UP = 1
+    MOVE_DOWN = 2
+    STOP_DOWN = 3
+    MOVE_LEFT = 4
+    STOP_LEFT = 5
+    MOVE_RIGHT = 6
+    STOP_RIGHT = 7
 
 
 # pylint: enable=too-few-public-methods
@@ -48,28 +48,28 @@ class FoscamPTZ(object):
         if msg.linear.x == 0.0 and msg.angular.z == 0:
             if self.stopped:
                 return
-            direction = Commands.stop_up.value
+            direction = Commands.STOP_UP.value
             self.move(direction)
-            direction = Commands.stop_left.value
+            direction = Commands.STOP_LEFT.value
             self.move(direction)
             self.stopped = True
             return
 
         if msg.linear.x > 0:
-            direction = Commands.move_up.value
+            direction = Commands.MOVE_UP.value
         elif msg.linear.x < 0:
-            direction = Commands.move_down.value
+            direction = Commands.MOVE_DOWN.value
         else:
-            direction = Commands.stop_down.value
+            direction = Commands.STOP_DOWN.value
 
         self.move(direction)
 
         if msg.angular.z > 0:
-            direction = Commands.move_right.value
+            direction = Commands.MOVE_RIGHT.value
         elif msg.angular.z < 0:
-            direction = Commands.move_left.value
+            direction = Commands.MOVE_LEFT.value
         else:
-            direction = Commands.stop_left.value
+            direction = Commands.STOP_LEFT.value
 
         self.move(direction)
         self.stopped = False
