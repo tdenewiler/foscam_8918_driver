@@ -60,6 +60,7 @@ jobs:
       - name: Install Statick dependencies
         run: |
           sudo apt update
+          python3 -m pip install --upgrade black
           python3 -m pip install --upgrade statick
           python3 -m pip install --upgrade statick-md
           sudo apt install -y cccc
